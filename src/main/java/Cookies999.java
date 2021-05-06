@@ -1,12 +1,14 @@
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Cookies999 {
-    private static String searchWord;
 
-    public static void main(String[] args) throws IOException {
+    public static Map<String, String> getCookies() {
 
         HashMap<String, String> cookies999 = new HashMap<>();
         cookies999.put("utid", "\"2|1:0|10:1612167971|4:utid|56:ek9vWVVabzlUNkNCTGRQb3hNY2I0M3FwMnh0dV9FYmd1bm9obmtfZA==|48cfcbc00566e0ad53e11fee56a054bf7a3495d0f647337358f79779c7a5bc1e\"");
@@ -31,15 +33,9 @@ public class Cookies999 {
         cookies999.put("_ga_37GFCZ6B0R", "GS1.1.1620224434.3.1.1620224435.59");
 
 
-        System.setProperty("http.proxyHost", "45.132.50.93");
-        System.setProperty("http.proxyPort", "45785");
+        //System.setProperty("http.proxyHost", "45.132.50.93");
+        //System.setProperty("http.proxyPort", "45785");
 
-
-        Connection.Response home99 = Jsoup.connect("https://999.md/ro/")
-                .cookies(cookies999)
-                .method(Connection.Method.GET)
-                .execute();
-        System.out.println(home99.parse().html());
-
+        return cookies999;
     }
 }

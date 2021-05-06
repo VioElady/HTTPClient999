@@ -9,16 +9,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ImageDownloader extends Thread{
+public class ImageDownloader extends Thread {
 
     private static String IMAGE_DESTINATION_FOLDER = "src\\\\main\\\\resources\\\\images";
-    private static HashMap<String, String> cookies999;
 
-    public static void main(String[] args) throws IOException {
+    private static Map<String, String> cookies999 = Cookies999.getCookies();
+
+    public static void main(String[] args) throws Exception {
 
         //replace it with your URL
         String strURL = "https://999.md/ro/";
@@ -27,6 +29,7 @@ public class ImageDownloader extends Thread{
         //connect to the website and get the document
         Document document = Jsoup
                 .connect(strURL)
+                .cookies(cookies999)
                 .timeout(10 * 1000)
                 .get();
 
@@ -38,7 +41,7 @@ public class ImageDownloader extends Thread{
         CountDownLatch latch = new CountDownLatch(5);
 
         //iterate over each image
-        for(Element imageElement : imageElements){
+        for (Element imageElement : imageElements) {
 
             //make sure to get the absolute URL using abs: prefix
             String strImageURL = imageElement.attr("abs:src");
@@ -77,7 +80,8 @@ public class ImageDownloader extends Thread{
             System.out.println("Image saved");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Image not found:" + strImageURL);
+            ;
         }
     }
 }
